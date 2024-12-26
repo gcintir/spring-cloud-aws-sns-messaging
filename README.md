@@ -65,8 +65,8 @@ Simulate SNS behavior locally using LocalStack and validate your implementation 
 
 ### Receive Message:
 ```bash  
+   @SqsListener(value = "${page.view.queue.name}")
    public void consumePageViewMessage(String pageViewMessage) {
-   public void handleMessage(String pageViewMessage) {
       System.out.println("Received pageViewMessage: " + pageViewMessage);
    }
 ```
