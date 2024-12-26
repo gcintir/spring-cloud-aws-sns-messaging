@@ -8,7 +8,7 @@ This repository demonstrates how to seamlessly integrate **Amazon SNS** with **S
 
 - **Simplified SNS Integration**: Leverage abstractions like `SnsTemplate`.
 - **Real-World Scenarios**: Hands-on examples for sending and receiving messages.
-  - ** Fan-out Pattern with multiple SQS queue subscribers
+- **Fan-out Pattern**: with multiple SQS queue subscriptions. 
 - **Reliable Testing**: Integration tests using **Testcontainers** to emulate real-world behavior.
 - **Cost-Effective Development**: Utilize **LocalStack** to simulate Amazon SNS in a local environment.
 
@@ -34,8 +34,8 @@ This repository demonstrates how to seamlessly integrate **Amazon SNS** with **S
 ### Installation
 1. Clone the repository:
    ```bash  
-   git clone https://github.com/gcintir/spring-cloud-aws-sqs-messaging.git
-   cd spring-cloud-aws-sqs-messaging 
+   git clone https://github.com/gcintir/spring-cloud-aws-sns-messaging.git
+   cd spring-cloud-aws-sns-messaging 
 
 2. Build the project:
    ```bash  
@@ -45,14 +45,14 @@ This repository demonstrates how to seamlessly integrate **Amazon SNS** with **S
 
 ## 🛠️ How It Works
 
-### Sending Messages
-Use the SqsTemplate to send messages to an SQS queue with ease.
+### Publishing Messages
+Use the SnsTemplate to publish messages to an SNS topic with ease.
 
 ### Receiving Messages
-Annotate your method with @SqsListener to automatically handle incoming messages.
+Subscribe SQS queues to SNS topic to receive notifications
 
 ### Local Testing
-Simulate SQS behavior locally using LocalStack and validate your implementation with Testcontainers.
+Simulate SNS behavior locally using LocalStack and validate your implementation with Testcontainers.
 
 ---
 
@@ -60,14 +60,14 @@ Simulate SQS behavior locally using LocalStack and validate your implementation 
 
 ### Send Message:
 ```bash  
-   sqsTemplate.convertAndSend("queueName", "Hello, SQS!");
+   snsTemplate.sendNotification("page-view-topic", SnsNotification.of(pageViewMessage));
 ```
 
 ### Receive Message:
 ```bash  
-   @SqsListener("queueName")
-   public void handleMessage(String message) {
-      System.out.println("Received message: " + message);
+   public void consumePageViewMessage(String pageViewMessage) {
+   public void handleMessage(String pageViewMessage) {
+      System.out.println("Received pageViewMessage: " + pageViewMessage);
    }
 ```
 
